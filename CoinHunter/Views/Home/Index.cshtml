@@ -29,7 +29,7 @@
                         <img src="@Model.CryptoList[i].Image" alt="Image of @Model.CryptoList[i].Name" width="100" height="100" />
                     </a>
                     <h1>{@Model.CryptoList[i].Name}</h1>
-                    <h2>@symbol@CryptoModel.MakeNumberPretty(@Model.CryptoList[1].Current_price)</h2>
+                    <h2>@symbol@CryptoModel.MakeNumberPretty(@Model.CryptoList[i].Current_price)</h2>
                 </div>
             </div>
         }
