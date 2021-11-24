@@ -1,0 +1,22 @@
+﻿.data-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.data-block {
+    margin: 5px;
+    padding: 20px;
+    width: auto;
+    background-color: #f2f2f2;
+    border-radius: 15px 50px 30px;
+
+    overflow:hidden;
+}
+.data-block h4{
+
+    color: dimgray;
+}
+
+.image-block{
+     text-align:center;
+}

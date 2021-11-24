@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllCryptos";
+
+    string[] TableHeaders = new string[]
+    {
+        "{Rank}", "{Icon}", "{Name}", "{Price}", "{24h}", "{Market Cap}","{Circulating Supply}", "{Total Volume}", "{ATH}"
+    };
+
+    @model ViewModel;
+
+    string symbol = CryptoModel.CurrencySymbol;
+}
+
+<Div class="crypto-container">
+
+    <table class="table-hover table-striped text-wrap text-center" width="100%">
+        <tr>
+            @{
+                foreach (var header in TableHeaders)
+                {
+                    <th>@header</th>
+                }
+            }
+        </tr>
+
+        @{
+            if (Model != null)
+            {
+                foreach (var crypto in Model.CryptoList)
+                {
+                    string colour = null;
+                    if (crypto.Price_change_percentage_24h < 0)
+                    {
+                        colour = "red";
+                    }
+                    else
+                    {
+                        colour = "green";
+                    }
+
+                    <tr>
+                        <td>@crypto.Market_cap_rank</td>
+                        <td><a href='@Url.Action("GetCrypto", "Crypto", crypto)'><img class="image" src="@crypto.Image" alt="Crypto Icon" width="50" height="50" /></a></td>
+                        <td>@crypto.Name</td>
+                        <td>@symbol@CryptoModel.MakeNumberPretty(crypto.Current_price)</td>
+                        <td style="color:@colour">@crypto.Price_change_percentage_24h%</td>
+                        <td>@symbol@CryptoModel.MakeNumberPretty(crypto.Market_cap)</td>
+                        <td>@CryptoModel.MakeNumberPretty(crypto.Circulating_supply) @crypto.Symbol.ToUpper()</td>
+                        <td>@symbol@CryptoModel.MakeNumberPretty(crypto.Total_volume)</td>
+                        <td>@symbol@CryptoModel.MakeNumberPretty(crypto.Ath)</td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+</Div>
+
+

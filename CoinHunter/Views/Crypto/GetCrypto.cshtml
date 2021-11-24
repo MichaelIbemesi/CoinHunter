@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewData["Title"] = "GetCrypto";
+
+    @model ViewModel;
+
+    string symbol = CryptoModel.CurrencySymbol;
+}
+
+
+<link href="/css/cryptos.css" rel="stylesheet" />
+
+<div class="image-block">
+    <img src="@Model.Crypto.Image" alt="Image of @Model.Crypto.Name" width="100" height="100" />
+    <h1>{@Model.Crypto.Name}</h1>
+</div>
+
+<hr />
+
+<div class="data-container">
+
+    <div class="data-block">
+        <h4>{Current Price}</h4>
+        <h2>@symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Current_price)</h2>
+        <h5>24h: @symbol@CryptoModel.MakeNumberPretty(Model.Crypto.High_24h)  24l: @symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Low_24h)</h5>
+    </div>
+
+    <div class="data-block">
+        <h4>{24h Change}</h4>
+
+        @{
+            string colour = null;
+            if (Model.Crypto.Price_change_percentage_24h < 0)
+            {
+                colour = "red";
+            }
+            else
+            {
+                colour = "green";
+            }
+        }
+
+    <h2 style="color:@colour">@symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Price_change_24h)</h2>
+        <h5 style="color:@colour">@Model.Crypto.Price_change_percentage_24h%</h5>
+    </div>
+
+    <div class="data-block">
+        <h4>{Market Cap}</h4>
+
+        @{
+            if (Model.Crypto.Market_cap_change_percentage_24h < 0)
+            {
+                colour = "red";
+            }
+            else
+            {
+                colour = "green";
+            }
+        }
+
+    <h2>@symbol@CryptoModel.MakeNumberPretty((decimal)Model.Crypto.Market_cap)</h2>
+        <h5 style="color:@colour">@Model.Crypto.Market_cap_change_percentage_24h%</h5>
+    </div>
+
+    <div class="data-block">
+        <h4>{Total Volume}</h4>
+        <h2>@symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Total_volume)</h2>
+
+        @{
+            decimal temp = 0;
+            if (Model.Crypto.Fully_diluted_valuation == null)
+            {
+                temp = 0;
+            }
+            else
+            {
+                temp = (decimal)Model.Crypto.Fully_diluted_valuation;
+            }
+        }
+    </div>
+
+    <div class="data-block">
+        <h4>{All Time High}</h4>
+        <h2>@symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Ath)</h2>
+    </div>
+
+    <div class="data-block">
+        <h4>{All Time Low}</h4>
+        <h2>@symbol@CryptoModel.MakeNumberPretty(Model.Crypto.Atl)</h2>
+    </div>
+
+    <div class="data-block">
+        <h4>{Circulating Supply}</h4>
+        <h2>@CryptoModel.MakeNumberPretty(Model.Crypto.Circulating_supply) @Model.Crypto.Symbol.ToUpper()</h2>
+    </div>
+
+    <div class="data-block">
+        <h4>{Max Suppy}</h4>
+
+        @{
+            if (Model.Crypto.Fully_diluted_valuation == null)
+            {
+                temp = 0;
+            }
+            else
+            {
+                temp = (decimal)Model.Crypto.Max_supply;
+            }
+        }
+
+        <h2>@CryptoModel.MakeNumberPretty(temp) @Model.Crypto.Symbol.ToUpper()</h2>
+        <h5> {FDV}: @symbol@CryptoModel.MakeNumberPretty(temp)</h5>
+    </div>
+</div>
+
+<hr />
+
+<div class="container">
+
+
+
+</div>
+
+<h5>{Last Updated}</h5>
+<h4>@Model.Crypto.Last_updated.ToShortDateString()</h4>
+
+
